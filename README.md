@@ -22,7 +22,7 @@ Controller.cpp and Controller.h: These files contain the implementation and clas
 
 ## Compilation and Execution
 
-To compile and run the simulation, first, download the project into a folder. Then, follow these steps:
+To compile and run the simulation, first, download the project as a zip file. Extract it to a folder. Then, follow these steps:
 
 1. Open a terminal.
 2. Navigate to the project directory:
