@@ -11,7 +11,7 @@ using namespace std;
 
 int main()
 {
-    const double dt = 0.2; // Time step for simulation
+    const double dt = 0.002; // Time step for simulation
 
     // User inputs
     double velocity_reference;
@@ -25,7 +25,7 @@ int main()
     // Give small gains
     // Determine gains by trial-error
     // controller(kp_pitch, kd_pitch, ki_pitch, kp_velocity, kd_velocity, ki_velocity,)
-    Controller controller(-0.005, -0.0001, 0.0002, 0.0002, -0.005, 0.0001); // Controller gains
+    Controller controller(-0.005, -0.001, -0.002, 0.002, 0.0005, 0.001); // Controller gains
 
 
     // Open a CSV file
@@ -33,6 +33,15 @@ int main()
 
     // Simulation loop
     for (double t = 0; t <= 10; t += dt) {
+
+        // Write simulation results to a CSV file in 5Hz.
+        if (fmod(t, 0.2) < dt) {
+            // Write simulation results to CSV file
+            csvFile << fixed << setprecision(2) << t << ", " << plane.getVelocity() << ", " << velocity_reference << ", "
+                << plane.getH() << ", " << altitude_reference << ", "
+                << plane.getGamma() << ", " << plane.getAngleOfAttack() << "\n";
+        }
+        
         // Calculate altitude error and velocity error
         double altitude_error = altitude_reference - plane.getH();
         double velocity_error = velocity_reference - plane.getVelocity();
@@ -43,11 +52,6 @@ int main()
         // Update state variables using PlaneModel's update method
         plane.update(dt, controller.getElevatorDeflection(), controller.getThrustAdjustment());
 
-
-        // Write simulation results to CSV file
-        csvFile << t << ", " << plane.getVelocity() << ", " << velocity_reference << ", "
-            << plane.getH() << ", " << altitude_reference << ", "
-            << plane.getGamma() << ", " << plane.getAngleOfAttack() << "\n";
     }
 
     // Close the CSV file
