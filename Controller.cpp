@@ -14,8 +14,8 @@ void Controller::calculateControlInputs(double altitude_error, double velocity_e
 
     // delta_thrust is for controlling the velocity via thrust
     // delta_elevator is for controlling altitude by changing pitch angle via elevator
-    delta_elevator = altitude_error * kp_pitch + ki_pitch * integral_altitude - (altitude_error - prev_altitude_error) / dt * kd_pitch;
-    delta_thrust = velocity_error * kp_velocity + ki_velocity * integral_velocity - (velocity_error - prev_velocity_error) / dt * kd_velocity;
+    delta_elevator = altitude_error * kp_pitch + ki_pitch * integral_altitude + (altitude_error - prev_altitude_error) / dt * kd_pitch;
+    delta_thrust = velocity_error * kp_velocity + ki_velocity * integral_velocity + (velocity_error - prev_velocity_error) / dt * kd_velocity;
 }
 
 // Getter methods 
