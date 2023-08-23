@@ -41,12 +41,12 @@ void PlaneModel::update(double dt, double delta_elevator, double delta_thrust) {
 
     // Model the forces on the plane
     double weight = m * g;
-    double thrust = max_throttle * delta_thrust/100;
-    double lift = 1 / 2 * rho * pow(velocity, 2.0) * wing_area * CL_wing;
-    double drag = 1 / 2 * rho * pow(velocity, 2.0) * wing_area * CD;
+    double thrust = max_throttle * delta_thrust / 100.0;
+    double lift = 1.0 / 2.0 * rho * pow(velocity, 2.0) * wing_area * CL_wing;
+    double drag = 1.0 / 2.0 * rho * pow(velocity, 2.0) * wing_area * CD;
 
     // Longitudinal motion equations
-    // There made some modificationd in 6DOF equations since we only simulate the longitudinal motion. p = r = phi = ksi = Z = N = 0.
+    // There made some modification in 6DOF equations since we only simulate the longitudinal motion. p = r = phi = ksi = Z = N = 0.
     // Since the a/c is symmetrical, product of inertas become 0. 
     double v_dot = (thrust * cos(angle_of_attack) - drag - weight * sin(gamma)) / m;
     double h_dot = velocity * sin(gamma);
