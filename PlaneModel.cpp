@@ -37,7 +37,7 @@ void PlaneModel::update(double dt, double delta_elevator, double delta_thrust) {
     double CD = Cd_0 + pow(CL_wing, 2.0) / (pi * aspect_ratio * 0.7);
 
     // Calculate moment, moment is essential for the longitudinal motion equations.
-    double moment = 1 / 2 * rho * pow(velocity, 2.0) * ((wing_area * CL_wing * wing_distance) - (tail_area * CL_tail * tail_distance));
+    double moment = 1.0 / 2.0 * rho * pow(velocity, 2.0) * ((wing_area * CL_wing * wing_distance) - (tail_area * CL_tail * tail_distance));
 
     // Model the forces on the plane
     double weight = m * g;
